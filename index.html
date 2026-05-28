@@ -117,7 +117,14 @@
                         </div>
                         <div class="form__row">
                             <label for="phone">Telefonnummer</label>
-                            <input type="tel" id="phone" name="phone" placeholder="0151 1234 5678" autocomplete="tel" required>
+                            <div class="phone-group">
+                                <select name="phoneCountry" class="phone-country" aria-label="Ländervorwahl">
+                                    <option value="+49" selected>🇩🇪 +49</option>
+                                    <option value="+43">🇦🇹 +43</option>
+                                    <option value="+41">🇨🇭 +41</option>
+                                </select>
+                                <input type="tel" id="phone" name="phone" placeholder="0151 1234 5678" autocomplete="tel" required>
+                            </div>
                         </div>
                         <input type="text" name="website" tabindex="-1" autocomplete="off"
                                style="position:absolute;left:-9999px;opacity:0;pointer-events:none;"
@@ -521,7 +528,14 @@
                         </div>
                         <div class="form__row">
                             <label for="cPhone">Telefonnummer</label>
-                            <input type="tel" id="cPhone" name="cPhone" placeholder="0151 1234 5678" autocomplete="tel" required>
+                            <div class="phone-group">
+                                <select name="cPhoneCountry" class="phone-country" aria-label="Ländervorwahl">
+                                    <option value="+49" selected>🇩🇪 +49</option>
+                                    <option value="+43">🇦🇹 +43</option>
+                                    <option value="+41">🇨🇭 +41</option>
+                                </select>
+                                <input type="tel" id="cPhone" name="cPhone" placeholder="0151 1234 5678" autocomplete="tel" required>
+                            </div>
                         </div>
                         <div class="form__row">
                             <label for="cTime">Wann darf ich Sie anrufen?</label>
@@ -535,7 +549,7 @@
                         </div>
                         <label class="form__check">
                             <input type="checkbox" id="cAgree" name="cAgree" required>
-                            <span>Ich bin damit einverstanden, kontaktiert zu werden. <a href="#datenschutz">Datenschutz</a></span>
+                            <span>Ich bin damit einverstanden, kontaktiert zu werden. <a href="#tab-datenschutz">Datenschutz</a></span>
                         </label>
                         <input type="text" name="website" tabindex="-1" autocomplete="off"
                                style="position:absolute;left:-9999px;opacity:0;pointer-events:none;"
@@ -584,7 +598,7 @@
                         </div>
                         <label class="form__check">
                             <input type="checkbox" id="oAgree" name="oAgree" required>
-                            <span>Ich bin damit einverstanden, kontaktiert zu werden. <a href="#datenschutz">Datenschutz</a></span>
+                            <span>Ich bin damit einverstanden, kontaktiert zu werden. <a href="#tab-datenschutz">Datenschutz</a></span>
                         </label>
                         <input type="text" name="website" tabindex="-1" autocomplete="off"
                                style="position:absolute;left:-9999px;opacity:0;pointer-events:none;"
@@ -594,6 +608,232 @@
                         </button>
                     </form>
                 </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- RECHTLICHES (Impressum / Datenschutz / Erstinformation) -->
+    <section class="rechtliches" id="rechtliches">
+        <div class="container">
+            <div class="section__head section__head--center">
+                <span class="section__eyebrow">Rechtliches</span>
+                <h2 class="section__title">Impressum, Datenschutz &amp; Erstinformation</h2>
+                <p class="section__lead">Transparenz ist uns wichtig. Hier finden Sie alle gesetzlich erforderlichen Angaben rund um unsere Tätigkeit als Versicherungsmakler.</p>
+            </div>
+
+            <div class="tabs" role="tablist" aria-label="Rechtliche Informationen">
+                <button type="button" class="tabs__btn is-active" role="tab" aria-selected="true" aria-controls="tab-impressum" id="tabbtn-impressum" data-tab="tab-impressum">Impressum</button>
+                <button type="button" class="tabs__btn" role="tab" aria-selected="false" aria-controls="tab-datenschutz" id="tabbtn-datenschutz" data-tab="tab-datenschutz">Datenschutz</button>
+                <button type="button" class="tabs__btn" role="tab" aria-selected="false" aria-controls="tab-erstinformation" id="tabbtn-erstinformation" data-tab="tab-erstinformation">Erstinformation</button>
+            </div>
+
+            <div class="tabs__panels">
+
+                <!-- Tab: Impressum -->
+                <article class="tabs__panel is-active" id="tab-impressum" role="tabpanel" aria-labelledby="tabbtn-impressum">
+                    <div class="legal">
+                        <p class="legal__meta">Stand 17.05.2026</p>
+
+                        <h3>Impressum und Erstinformation (gemäß § 5 DDG und § 15 VersVermV)</h3>
+
+                        <h4>Angaben gemäß § 5 DDG</h4>
+                        <p>
+                            Johann Ehlers<br>
+                            Kampstraße 9<br>
+                            38442 Wolfsburg
+                        </p>
+
+                        <h4>Kontakt</h4>
+                        <p>
+                            Telefon: +49 176 54738763<br>
+                            E-Mail: info@sterbegeldsofort.de
+                        </p>
+
+                        <h4>Aufsichtsbehörde und zuständige Behörde für die Erlaubnis</h4>
+                        <p>
+                            Industrie- und Handelskammer Lüneburg-Wolfsburg<br>
+                            Am Sande 1<br>
+                            21335 Lüneburg<br>
+                            Deutschland<br>
+                            <a href="https://www.ihk-lueneburg.de/" target="_blank" rel="noopener">https://www.ihk-lueneburg.de/</a>
+                        </p>
+
+                        <h4>Berufsbezeichnung und berufsrechtliche Regelungen</h4>
+                        <p>Berufsbezeichnung: Versicherungsmakler mit Erlaubnis nach § 34d Abs. 1 Gewerbeordnung (GewO), verliehen in der Bundesrepublik Deutschland.</p>
+                        <p>Es gelten folgende berufsrechtliche Regelungen:</p>
+                        <ul class="legal__list">
+                            <li>§ 34d Gewerbeordnung (GewO)</li>
+                            <li>§§ 59-68 Versicherungsvertragsgesetz (VVG)</li>
+                            <li>Versicherungsvermittlungsverordnung (VersVermV)</li>
+                            <li>§ 48b Versicherungsaufsichtsgesetz (VAG)</li>
+                        </ul>
+                        <p>Die berufsrechtlichen Regelungen können über die vom Bundesministerium der Justiz und von der juris GmbH betriebene Homepage <a href="https://www.gesetze-im-internet.de" target="_blank" rel="noopener">www.gesetze-im-internet.de</a> eingesehen und abgerufen werden.</p>
+
+                        <h4>Angaben zum Vermittlerregister</h4>
+                        <p>
+                            Registernummer: D-SSHO-3TQIA-00<br>
+                            Die Eintragung im Vermittlerregister kann wie folgt überprüft werden:<br>
+                            Deutsche Industrie- und Handelskammer (DIHK)<br>
+                            Breite Straße 29<br>
+                            10178 Berlin<br>
+                            Telefon: 0180-600-585-0 (0,20 €/Anruf)<br>
+                            <a href="https://www.vermittlerregister.info" target="_blank" rel="noopener">www.vermittlerregister.info</a>
+                        </p>
+
+                        <h4>Streitbeilegung und Schlichtungsstellen</h4>
+                        <p>Gemäß § 36 VSBG und § 17 Abs. 4 VersVermV teilen wir mit, dass wir verpflichtet und bereit sind, an einem Streitbeilegungsverfahren teilzunehmen. Folgende Schlichtungsstellen können zur außergerichtlichen Streitbeilegung angerufen werden:</p>
+                        <p>
+                            <strong>Versicherungsombudsmann e.V.</strong><br>
+                            Postfach, Berlin<br>
+                            <a href="https://www.versicherungsombudsmann.de" target="_blank" rel="noopener">www.versicherungsombudsmann.de</a>
+                        </p>
+                        <p>
+                            <strong>Ombudsmann Private Kranken- und Pflegeversicherung</strong><br>
+                            Postfach, Berlin<br>
+                            <a href="https://www.pkv-ombudsmann.de" target="_blank" rel="noopener">www.pkv-ombudsmann.de</a>
+                        </p>
+                    </div>
+                </article>
+
+                <!-- Tab: Datenschutz -->
+                <article class="tabs__panel" id="tab-datenschutz" role="tabpanel" aria-labelledby="tabbtn-datenschutz" hidden>
+                    <div class="legal">
+                        <p class="legal__meta">Stand 17.05.2026</p>
+
+                        <h3>Datenschutzerklärung</h3>
+                        <p>Wir freuen uns über Ihr Interesse an unseren Dienstleistungen. Der Schutz Ihrer persönlichen Daten hat für uns höchste Priorität. Im Folgenden informieren wir Sie umfassend und transparent darüber, wie wir Ihre personenbezogenen Daten verarbeiten, wenn Sie unsere Website besuchen und unsere Dienstleistungen in Anspruch nehmen. Als Versicherungsmakler handeln wir als eigenständiger Verantwortlicher und wahren Ihre Interessen als unser Kunde.</p>
+
+                        <h4>1. Name und Kontaktdaten des Verantwortlichen</h4>
+                        <p>Verantwortlicher für die Datenverarbeitung auf dieser Website im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:</p>
+                        <p>
+                            Johann Ehlers<br>
+                            Kampstraße 9<br>
+                            38442 Wolfsburg<br>
+                            Telefon: +49 176 54738763<br>
+                            E-Mail: info@sterbegeldsofort.de
+                        </p>
+                        <p>Ein Datenschutzbeauftragter wurde nicht bestellt, da die gesetzlichen Voraussetzungen für eine Benennungspflicht nicht vorliegen. Sie können sich bei allen Fragen zum Datenschutz jederzeit direkt an den oben genannten Verantwortlichen wenden.</p>
+
+                        <h4>2. Zwecke und Rechtsgrundlagen der Verarbeitung</h4>
+                        <p>Wir verarbeiten Ihre personenbezogenen Daten stets im Einklang mit den Bestimmungen der Datenschutz-Grundverordnung (DSGVO) und dem Bundesdatenschutzgesetz (BDSG). Auf dieser Website erheben wir Daten zu folgenden Zwecken:</p>
+
+                        <p><strong>2.1 Bereitstellung der Website und Erstellung von Logfiles</strong><br>
+                        Bei der rein informatorischen Nutzung unserer Website erheben wir nur die personenbezogenen Daten, die Ihr Browser an unseren Server übermittelt (sog. Server-Logfiles). Dazu gehören unter anderem IP-Adresse, Datum und Uhrzeit der Anfrage, Browsertyp und Betriebssystem. Die Verarbeitung dieser Daten ist technisch erforderlich, um Ihnen unsere Website anzuzeigen und die Stabilität sowie Sicherheit zu gewährleisten. Die Rechtsgrundlage hierfür ist unser berechtigtes Interesse gemäß Art. 6 Abs. 1 lit. f DSGVO.</p>
+
+                        <p><strong>2.2 Kontaktformular für einen telefonischen Rückruf</strong><br>
+                        Wenn Sie über unser Formular einen telefonischen Rückruf anfordern, verarbeiten wir Ihren Vor- und Nachnamen, Ihre Telefonnummer sowie Ihren gewünschten Rückruf-Zeitraum (Vormittags, Nachmittags, Abends oder am Samstag). Diese Daten verarbeiten wir ausschließlich, um Ihrer Kontaktanfrage nachzukommen und Sie zum gewünschten Zeitpunkt zu beraten. Die Rechtsgrundlage für die Verarbeitung ist die Durchführung vorvertraglicher Maßnahmen gemäß Art. 6 Abs. 1 lit. b DSGVO.</p>
+
+                        <p><strong>2.3 Formular zur Angebotseinholung</strong><br>
+                        Wenn Sie über unsere Website ein Angebot für eine Sterbegeldversicherung anfordern, erheben wir Ihren Vor- und Nachnamen, Ihr Alter, die Höhe der gewünschten Sterbegeld-Versicherungssumme sowie Ihre E-Mail-Adresse. Diese Daten sind zwingend erforderlich, um Ihren individuellen Versicherungsbedarf zu ermitteln und Ihnen ein passgenaues Angebot zukommen zu lassen. Die Rechtsgrundlage hierfür ist ebenfalls die Durchführung vorvertraglicher Maßnahmen gemäß Art. 6 Abs. 1 lit. b DSGVO.</p>
+
+                        <h4>3. Empfänger und Kategorien von Empfängern der Daten</h4>
+                        <p>Innerhalb unseres Maklerbetriebs erhalten nur diejenigen Stellen Zugriff auf Ihre Daten, die diese zur Erfüllung unserer vertraglichen und gesetzlichen Pflichten benötigen. Darüber hinaus geben wir Ihre personenbezogenen Daten nur an Dritte weiter, wenn dies datenschutzrechtlich zulässig ist. Hierzu zählen folgende Kategorien von Empfängern:</p>
+
+                        <p><strong>3.1 Dienstleister und Auftragsverarbeiter</strong><br>
+                        Wir setzen zur Erbringung unserer Dienstleistungen externe Dienstleister ein, die weisungsgebunden als Auftragsverarbeiter (gemäß Art. 28 DSGVO) für uns tätig werden:</p>
+                        <ul class="legal__list">
+                            <li><strong>Webhosting:</strong> Zur Bereitstellung und Sicherung unserer Website nutzen wir den Hosting-Anbieter Hostinger.</li>
+                            <li><strong>Kundenverwaltung (CRM) und Maklerverwaltungsprogramme:</strong> Zur sicheren Speicherung und Verwaltung Ihrer Kunden- und Vertragsdaten nutzen wir die CRM-Systeme SyncraOS, HubSpot sowie GoHighLevel (HighLevel Inc.) und die Maklerverwaltungsprogramme Professional Works und das VEMAOffice der VEMA eG.</li>
+                            <li><strong>Cloud- und Kommunikationsinfrastruktur:</strong> Für unsere E-Mail-Kommunikation, Kalender- und interne Dokumentenverwaltung nutzen wir Google Workspace.</li>
+                        </ul>
+
+                        <p><strong>3.2 Versicherungsunternehmen</strong><br>
+                        Um Ihnen passgenaue Angebote für Sterbegeldversicherungen unterbreiten zu können und Verträge zu vermitteln, geben wir Ihre eingegebenen Daten (wie Alter und Versicherungswunsch) über die jeweiligen Extranets an die infrage kommenden Versicherungsunternehmen weiter. Eine aktuelle Liste der Lebensversicherer, an die wir vermitteln, halten wir für Sie auf Anfrage jederzeit transparent bereit.</p>
+
+                        <p><strong>3.3 Telekommunikations- und Messenger-Dienste</strong><br>
+                        Für die telefonische Beratung und Kontaktaufnahme nutzen wir die Dienste von Sipgate (Voice over IP, sipgate GmbH, Düsseldorf) sowie der Telekom Deutschland GmbH (Mobilfunk). Eingehende und ausgehende Telefonate können dabei zu Beratungs- und Dokumentationszwecken über die Sipgate-Plattform abgewickelt werden.</p>
+                        <p>Zudem bieten wir die Kommunikation über WhatsApp Business (Meta Platforms Ireland Limited) an. Wenn Sie uns über WhatsApp kontaktieren, weisen wir darauf hin, dass Meta dabei sogenannte Metadaten (z. B. Telefonnummer, Zeitpunkt der Nachricht) verarbeitet und diese Daten teilweise auf Servern in den USA gespeichert werden. Die Nutzung von WhatsApp erfolgt auf Grundlage Ihrer ausdrücklichen Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), wenn Sie diesen Kommunikationsweg wählen.</p>
+
+                        <h4>4. Datenübermittlung in Drittstaaten</h4>
+                        <p>Einige der von uns eingesetzten Dienstleister (insbesondere Google Workspace, HubSpot, GoHighLevel sowie WhatsApp Business / Meta) haben ihren Sitz oder verarbeiten Daten auf Servern in den USA.</p>
+                        <p>Für die USA hat die EU-Kommission einen Angemessenheitsbeschluss (das sogenannte „EU-US Data Privacy Framework") erlassen. Das bedeutet, dass Unternehmen, die nach diesem Framework zertifiziert sind, ein Datenschutzniveau bieten, das dem der EU entspricht. Google, HubSpot und Meta sind nach diesem Framework zertifiziert. Sollte ein Datentransfer in ein Drittland außerhalb dieses Frameworks stattfinden, stützen wir diesen auf Standardvertragsklauseln (SCC) der EU-Kommission, um ein angemessenes Datenschutzniveau zu gewährleisten.</p>
+
+                        <h4>5. Technischer Datenschutz, Cookies und Tracking (TDDDG)</h4>
+                        <p>Um den Besuch unserer Website attraktiv zu gestalten und die Nutzung bestimmter Funktionen zu ermöglichen, verwenden wir auf unserer Landingpage sogenannte Cookies und ähnliche Technologien.</p>
+
+                        <p><strong>5.1 Technisch notwendige Cookies</strong><br>
+                        Einige Cookies sind zwingend erforderlich, um grundlegende Funktionen unserer Website sicherzustellen. Das Setzen dieser technisch notwendigen Cookies und der Zugriff darauf erfolgt auf Grundlage von § 25 Abs. 2 TDDDG. Die anschließende Datenverarbeitung basiert auf unserem berechtigten Interesse (Art. 6 Abs. 1 lit. f DSGVO) an der Bereitstellung einer funktionierenden und sicheren Website.</p>
+
+                        <p><strong>5.2 Consent-Banner (Einwilligungsverwaltung)</strong><br>
+                        Für alle Cookies und Tracking-Technologien, die nicht technisch zwingend erforderlich sind, holen wir vorab über unser Cookie-Banner Ihre ausdrückliche Einwilligung ein (§ 25 Abs. 1 TDDDG i.V.m. Art. 6 Abs. 1 lit. a DSGVO). Sie können Ihre getroffene Auswahl jederzeit über die Einstellungen unseres Cookie-Banners auf der Website widerrufen oder anpassen.</p>
+
+                        <p><strong>5.3 Reichweitenmessung und Marketing-Pixel</strong><br>
+                        Soweit Sie hierin eingewilligt haben, setzen wir auf unserer Website Tracking- und Marketing-Technologien gängiger Anbieter ein, um die Nutzung unserer Website zu analysieren und Ihnen für Sie relevantere Inhalte und Anzeigen anzeigen zu können:</p>
+                        <ul class="legal__list">
+                            <li><strong>Google-Dienste</strong> (Google Ireland Limited): Google Analytics, Google Ads inkl. Conversion-Tracking sowie das Google-Tag/Remarketing-Pixel zur Reichweitenmessung und Optimierung unserer Werbekampagnen.</li>
+                            <li><strong>Meta-Pixel</strong> (Meta Platforms Ireland Limited): Tracking-Pixel von Facebook und Instagram zur Messung von Werbewirksamkeit, Conversion-Tracking und Bildung von Zielgruppen für Werbeanzeigen.</li>
+                            <li><strong>GoHighLevel</strong> (HighLevel Inc.): Funnel-, Formular- und Conversion-Tracking auf unseren Landingpages.</li>
+                            <li><strong>HubSpot</strong> (HubSpot Inc.): Tracking-Cookies zur Analyse des Nutzerverhaltens und zur Zuordnung von Anfragen zu Marketingkampagnen.</li>
+                        </ul>
+                        <p>Diese Technologien können beim Besuch unserer Website Informationen über Ihr Gerät (z. B. IP-Adresse, Browsertyp, Verweildauer, besuchte Seiten) erheben und zur Auswertung an die jeweiligen Anbieter – auch in die USA – übermitteln. Rechtsgrundlage ist jeweils Ihre Einwilligung gemäß § 25 Abs. 1 TDDDG i.V.m. Art. 6 Abs. 1 lit. a DSGVO. Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen.</p>
+
+                        <h4>6. Speicherdauer und Datenlöschung</h4>
+                        <p>Wir speichern Ihre personenbezogenen Daten nur so lange, wie es für die Erreichung der genannten Verarbeitungszwecke erforderlich ist oder wie es die vom Gesetzgeber vorgesehenen vielfältigen Speicherfristen verlangen.</p>
+                        <ul class="legal__list">
+                            <li><strong>Zustande gekommene Verträge und Beratungen:</strong> Unterlagen, die im Rahmen einer erfolgreichen Maklerleistung entstehen, bewahren wir in der Regel für 10 Jahre nach Vertragsende auf, um gesetzlichen Aufbewahrungsfristen (z. B. nach dem Handelsgesetzbuch und der Abgabenordnung) sowie Dokumentationspflichten nach dem Versicherungsvertragsgesetz (VVG) nachzukommen.</li>
+                            <li><strong>Nicht zustande gekommene Verträge (Angebotsanfragen):</strong> Daten aus reinen Angebotsanfragen, aus denen kein Versicherungsvertrag resultiert, löschen wir in der Regel nach 3 Jahren. Diese Frist orientiert sich an der regelmäßigen gesetzlichen Verjährungsfrist und dient der Abwehr möglicher Rechtsansprüche.</li>
+                        </ul>
+
+                        <h4>7. Ihre Rechte als betroffene Person</h4>
+                        <p>Werden Ihre personenbezogenen Daten verarbeitet, sind Sie „betroffene Person" im Sinne der DSGVO. Ihnen stehen uns gegenüber folgende Rechte zu:</p>
+                        <ul class="legal__list">
+                            <li><strong>Auskunftsrecht (Art. 15 DSGVO):</strong> Sie haben das Recht, Auskunft über Ihre von uns verarbeiteten Daten zu verlangen.</li>
+                            <li><strong>Recht auf Berichtigung (Art. 16 DSGVO):</strong> Sie können die unverzügliche Berichtigung unrichtiger oder Vervollständigung Ihrer bei uns gespeicherten Daten verlangen.</li>
+                            <li><strong>Recht auf Löschung (Art. 17 DSGVO):</strong> Sie können die Löschung Ihrer bei uns gespeicherten Daten verlangen, sofern nicht die Verarbeitung zur Erfüllung einer rechtlichen Verpflichtung oder zur Geltendmachung von Rechtsansprüchen erforderlich ist.</li>
+                            <li><strong>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO):</strong> Sie können die Einschränkung der Verarbeitung Ihrer Daten verlangen.</li>
+                            <li><strong>Recht auf Datenübertragbarkeit (Art. 20 DSGVO):</strong> Sie haben das Recht, Ihre Daten in einem strukturierten, gängigen und maschinenlesbaren Format zu erhalten oder die Übermittlung an einen anderen Verantwortlichen zu verlangen.</li>
+                            <li><strong>Widerrufsrecht (Art. 7 Abs. 3 DSGVO):</strong> Sie können Ihre einmal erteilte Einwilligung jederzeit uns gegenüber widerrufen.</li>
+                            <li><strong>Widerspruchsrecht (Art. 21 DSGVO):</strong> Sofern Ihre Daten auf Grundlage von berechtigten Interessen verarbeitet werden, haben Sie das Recht, Widerspruch gegen die Verarbeitung einzulegen.</li>
+                            <li><strong>Beschwerderecht (Art. 77 DSGVO):</strong> Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren. In der Regel können Sie sich hierfür an die Aufsichtsbehörde Ihres üblichen Aufenthaltsortes oder unseres Firmensitzes (Die Landesbeauftragte für den Datenschutz Niedersachsen, Prinzenstraße 5, 30159 Hannover) wenden.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- Tab: Erstinformation -->
+                <article class="tabs__panel" id="tab-erstinformation" role="tabpanel" aria-labelledby="tabbtn-erstinformation" hidden>
+                    <div class="legal">
+                        <p class="legal__meta">Stand 17.05.2026</p>
+
+                        <h3>Statusbezogene Erstinformation (gemäß § 15 VersVermV)</h3>
+                        <p>Als Versicherungsmakler sind wir gesetzlich verpflichtet, Sie vor Vermittlung eines Versicherungsvertrages über unseren Status, unsere Vergütung sowie Schlichtungsstellen zu informieren. Die vollständige statusbezogene Erstinformation samt Impressum stellen wir Ihnen als PDF zum Download bereit.</p>
+
+                        <div class="legal__download">
+                            <a class="btn btn--primary btn--lg" href="erstinformation.pdf" download="Erstinformation-Johann-Ehlers.pdf" target="_blank" rel="noopener">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Erstinformation als PDF herunterladen
+                            </a>
+                            <span class="legal__download-meta">PDF · ca. 70 KB · Stand 17.05.2026</span>
+                        </div>
+
+                        <h4>Beratungsangebot</h4>
+                        <p>Unsere Tätigkeit beinhaltet auch Beratung.</p>
+
+                        <h4>Art und Quelle der Vergütung</h4>
+                        <p>Die Vergütung unserer Tätigkeit erfolgt als:</p>
+                        <ul class="legal__list">
+                            <li>in der Versicherungsprämie enthaltene Courtage, die vom jeweiligen Versicherungsunternehmen ausgezahlt wird oder als</li>
+                            <li>konkret vereinbarte Zahlung durch den Kunden oder als</li>
+                            <li>Kombination aus beidem. Dies ist abhängig von den Wünschen und Bedürfnissen des Kunden und den Versicherungsprodukten, welche eventuell vermittelt werden.</li>
+                        </ul>
+
+                        <h4>Beteiligungsverhältnisse</h4>
+                        <p>Johann Ehlers besitzt weder direkte noch indirekte Beteiligungen von über 10 Prozent an den Stimmrechten oder am Kapital eines Versicherungsunternehmens, noch besitzen Versicherungsunternehmen oder Mutterunternehmen von Versicherungsunternehmen eine direkte oder indirekte Beteiligung von über 10 Prozent an den Stimmrechten oder am Kapital von Johann Ehlers.</p>
+
+                        <h4>Streitbeilegung und Schlichtungsstellen</h4>
+                        <p>Gemäß § 36 VSBG und § 17 Abs. 4 VersVermV teilen wir mit, dass wir verpflichtet und bereit sind, an einem Streitbeilegungsverfahren teilzunehmen. Folgende Schlichtungsstellen können zur außergerichtlichen Streitbeilegung angerufen werden:</p>
+                        <p>
+                            <strong>Versicherungsombudsmann e.V.</strong><br>
+                            Postfach, Berlin<br>
+                            <a href="https://www.versicherungsombudsmann.de" target="_blank" rel="noopener">www.versicherungsombudsmann.de</a>
+                        </p>
+                        <p>
+                            <strong>Ombudsmann Private Kranken- und Pflegeversicherung</strong><br>
+                            Postfach, Berlin<br>
+                            <a href="https://www.pkv-ombudsmann.de" target="_blank" rel="noopener">www.pkv-ombudsmann.de</a>
+                        </p>
+                    </div>
+                </article>
 
             </div>
         </div>
@@ -642,10 +882,11 @@
                 <div class="footer__col">
                     <h4>Rechtliches</h4>
                     <ul>
-                        <li><a href="#impressum">Impressum</a></li>
-                        <li><a href="#datenschutz">Datenschutz</a></li>
-                        <li><a href="#erstinformation">Erstinformation</a></li>
-                        <li><a href="#cookies">Cookie-Einstellungen</a></li>
+                        <li><a href="#tab-impressum">Impressum</a></li>
+                        <li><a href="#tab-datenschutz">Datenschutz</a></li>
+                        <li><a href="#tab-erstinformation">Erstinformation</a></li>
+                        <li><a href="erstinformation.pdf" download="Erstinformation-Johann-Ehlers.pdf" target="_blank" rel="noopener">Erstinformation (PDF)</a></li>
+                        <li><a href="#" id="cookieReopen">Cookie-Einstellungen</a></li>
                     </ul>
                 </div>
             </div>
@@ -656,6 +897,74 @@
             </div>
         </div>
     </footer>
+
+    <!-- COOKIE CONSENT BANNER -->
+    <div class="cookie-banner" id="cookieBanner" role="dialog" aria-modal="false" aria-labelledby="cookieBannerTitle" aria-describedby="cookieBannerText" hidden>
+        <div class="cookie-banner__inner">
+            <div class="cookie-banner__text">
+                <h2 class="cookie-banner__title" id="cookieBannerTitle">Wir respektieren Ihre Privatsphäre</h2>
+                <p id="cookieBannerText">
+                    Wir verwenden Cookies und ähnliche Technologien, um unsere Website bereitzustellen sowie – mit Ihrer Einwilligung – Reichweiten zu messen und Inhalte für Sie zu personalisieren. Dazu zählen auch Tracking-Pixel von Google und Meta. Sie können selbst entscheiden, welche Kategorien Sie zulassen. Ihre Einwilligung können Sie jederzeit über „Cookie-Einstellungen" im Footer widerrufen. Mehr in unserer <a href="#tab-datenschutz">Datenschutzerklärung</a>.
+                </p>
+            </div>
+            <div class="cookie-banner__actions">
+                <button type="button" class="btn btn--ghost cookie-banner__btn" id="cookieReject">Nur notwendige</button>
+                <button type="button" class="btn btn--ghost cookie-banner__btn" id="cookieSettings">Einstellungen</button>
+                <button type="button" class="btn btn--primary cookie-banner__btn" id="cookieAccept">Alle akzeptieren</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- COOKIE SETTINGS MODAL -->
+    <div class="cookie-modal" id="cookieModal" role="dialog" aria-modal="true" aria-labelledby="cookieModalTitle" hidden>
+        <div class="cookie-modal__backdrop" data-cookie-close></div>
+        <div class="cookie-modal__panel" role="document">
+            <button type="button" class="cookie-modal__close" aria-label="Schließen" data-cookie-close>&times;</button>
+            <h2 class="cookie-modal__title" id="cookieModalTitle">Cookie-Einstellungen</h2>
+            <p class="cookie-modal__intro">
+                Hier können Sie selbst entscheiden, welche Kategorien von Cookies und Tracking-Technologien Sie zulassen möchten. Technisch notwendige Cookies sind für den Betrieb der Website zwingend erforderlich. Alle anderen Kategorien sind optional und basieren auf Ihrer Einwilligung gemäß § 25 Abs. 1 TDDDG i.V.m. Art. 6 Abs. 1 lit. a DSGVO.
+            </p>
+
+            <div class="cookie-cat">
+                <label class="cookie-cat__head">
+                    <span class="cookie-cat__title">Technisch notwendig</span>
+                    <span class="cookie-toggle cookie-toggle--locked" aria-hidden="true">
+                        <input type="checkbox" checked disabled>
+                        <span class="cookie-toggle__track"></span>
+                    </span>
+                </label>
+                <p class="cookie-cat__desc">Sicherstellung grundlegender Funktionen wie Formularübertragung, Speicherung Ihrer Cookie-Auswahl und Sicherheit. Diese Cookies können nicht deaktiviert werden. Rechtsgrundlage: § 25 Abs. 2 TDDDG.</p>
+            </div>
+
+            <div class="cookie-cat">
+                <label class="cookie-cat__head" for="cookieCatAnalytics">
+                    <span class="cookie-cat__title">Statistik &amp; Reichweitenmessung</span>
+                    <span class="cookie-toggle">
+                        <input type="checkbox" id="cookieCatAnalytics" data-cookie-cat="analytics">
+                        <span class="cookie-toggle__track"></span>
+                    </span>
+                </label>
+                <p class="cookie-cat__desc">Anonymisierte Auswertung Ihrer Nutzung, z. B. mit Google Analytics, um unsere Inhalte zu verbessern.</p>
+            </div>
+
+            <div class="cookie-cat">
+                <label class="cookie-cat__head" for="cookieCatMarketing">
+                    <span class="cookie-cat__title">Marketing &amp; Tracking-Pixel</span>
+                    <span class="cookie-toggle">
+                        <input type="checkbox" id="cookieCatMarketing" data-cookie-cat="marketing">
+                        <span class="cookie-toggle__track"></span>
+                    </span>
+                </label>
+                <p class="cookie-cat__desc">Tracking-Pixel von Google Ads und Meta (Facebook/Instagram), HubSpot- und GoHighLevel-Tracking. Wird genutzt, um Werbewirksamkeit zu messen und Ihnen passendere Anzeigen zu zeigen. Datenübertragung u. a. in die USA möglich.</p>
+            </div>
+
+            <div class="cookie-modal__actions">
+                <button type="button" class="btn btn--ghost" id="cookieRejectModal">Nur notwendige</button>
+                <button type="button" class="btn btn--primary" id="cookieSaveModal">Auswahl speichern</button>
+                <button type="button" class="btn btn--primary cookie-modal__accept-all" id="cookieAcceptModal">Alle akzeptieren</button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

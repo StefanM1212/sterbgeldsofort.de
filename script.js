@@ -81,6 +81,14 @@
             const targetId = link.getAttribute('href');
             if (targetId === '#' || targetId.length < 2) return;
 
+            const rawId = targetId.slice(1);
+
+            // If the link points at a legal tab, activate that tab first
+            // so the panel is visible before we scroll to it.
+            if (rawId.startsWith('tab-')) {
+                activateLegalTab(rawId);
+            }
+
             const target = document.querySelector(targetId);
             if (!target) return;
 
@@ -105,6 +113,44 @@
             }
         });
     });
+
+    /* ---------------------------------------
+       Rechtliches – tab switching + deep-link
+       --------------------------------------- */
+    const tabButtons = document.querySelectorAll('.tabs__btn');
+    const tabPanels = document.querySelectorAll('.tabs__panel');
+
+    function activateLegalTab(panelId) {
+        let matched = false;
+        tabButtons.forEach((btn) => {
+            const isMatch = btn.dataset.tab === panelId;
+            btn.classList.toggle('is-active', isMatch);
+            btn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+            if (isMatch) matched = true;
+        });
+        tabPanels.forEach((panel) => {
+            const isMatch = panel.id === panelId;
+            panel.classList.toggle('is-active', isMatch);
+            if (isMatch) {
+                panel.removeAttribute('hidden');
+            } else {
+                panel.setAttribute('hidden', '');
+            }
+        });
+        return matched;
+    }
+
+    tabButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            activateLegalTab(btn.dataset.tab);
+        });
+    });
+
+    // Open the matching tab when arriving with #tab-* in the URL
+    const initialHash = window.location.hash.replace('#', '');
+    if (initialHash.startsWith('tab-')) {
+        activateLegalTab(initialHash);
+    }
 
     /* ---------------------------------------
        Forms – simple validation + success state
@@ -156,7 +202,11 @@
         return valid;
     }
 
-    const LEAD_ENDPOINT = 'https://leadsammlung-johannehlers.rechnungenundlogins.workers.dev';
+    const LEAD_ENDPOINTS = [
+        'https://leadsammlung-johannehlers.rechnungenundlogins.workers.dev'
+    ];
+
+    const SUCCESS_MSG = 'Vielen Dank! Johann Ehlers meldet sich innerhalb von 24 Stunden persönlich bei Ihnen.';
 
     const forms = document.querySelectorAll('form');
     forms.forEach((form) => {
@@ -169,6 +219,13 @@
                 return;
             }
 
+            // Honeypot: silently swallow bot submits so they never reach any endpoint
+            const honeypot = form.querySelector('input[name="website"]');
+            if (honeypot && honeypot.value.trim()) {
+                showSuccess(form, SUCCESS_MSG);
+                return;
+            }
+
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalLabel = submitBtn ? submitBtn.innerHTML : '';
             if (submitBtn) {
@@ -176,29 +233,64 @@
                 submitBtn.textContent = 'Wird gesendet …';
             }
 
-            // Build payload from all named fields (incl. honeypot "website")
+            // Collect raw form fields
             const formData = new FormData(form);
-            const data = {};
+            const raw = {};
             formData.forEach((value, key) => {
-                data[key] = value;
+                raw[key] = value;
             });
-            data.formType = form.id || 'unknown';
-            data.submittedAt = new Date().toISOString();
-            data.pageUrl = window.location.href;
+
+            // Combine country dial code + local number into E.164
+            // (so GHL doesn't fall back to +1/US default)
+            function toE164(country, local) {
+                if (!local) return '';
+                let cleaned = String(local).replace(/[\s\-().]/g, '');
+                if (cleaned.startsWith('+')) return cleaned;
+                if (cleaned.startsWith('00')) return '+' + cleaned.slice(2);
+                if (cleaned.startsWith('0')) cleaned = cleaned.slice(1);
+                return (country || '+49') + cleaned;
+            }
+
+            const phoneE164 = toE164(
+                raw.phoneCountry || raw.cPhoneCountry,
+                raw.phone || raw.cPhone
+            );
+
+            // Normalize across the three form variants so GHL always receives
+            // the same keys (name / phone / email / age / callbackTime / desiredSum)
+            const data = {
+                formType: form.id || 'unknown',
+                submittedAt: new Date().toISOString(),
+                pageUrl: window.location.href,
+                name: raw.firstName || raw.cName || raw.oName || '',
+                phone: phoneE164,
+                phoneCountry: raw.phoneCountry || raw.cPhoneCountry || '',
+                phoneRaw: raw.phone || raw.cPhone || '',
+                email: raw.email || raw.oEmail || '',
+                age: raw.age || raw.oAge || '',
+                callbackTime: raw.cTime || '',
+                desiredSum: raw.oSum || '',
+                consent: !!(raw.cAgree || raw.oAgree),
+                website: raw.website || ''
+            };
 
             try {
-                const response = await fetch(LEAD_ENDPOINT, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-
-                if (!response.ok) throw new Error('Request failed: ' + response.status);
-
-                showSuccess(
-                    form,
-                    'Vielen Dank! Johann Ehlers meldet sich innerhalb von 24 Stunden persönlich bei Ihnen.'
+                const results = await Promise.allSettled(
+                    LEAD_ENDPOINTS.map((url) =>
+                        fetch(url, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data)
+                        })
+                    )
                 );
+
+                const anyOk = results.some(
+                    (r) => r.status === 'fulfilled' && r.value && r.value.ok
+                );
+                if (!anyOk) throw new Error('All endpoints failed');
+
+                showSuccess(form, SUCCESS_MSG);
             } catch (err) {
                 if (submitBtn) {
                     submitBtn.disabled = false;
@@ -217,6 +309,118 @@
             field.addEventListener('input', () => field.classList.remove('form__error'));
             field.addEventListener('change', () => field.classList.remove('form__error'));
         });
+    });
+
+    /* ---------------------------------------
+       Cookie consent banner + settings modal
+       --------------------------------------- */
+    const COOKIE_KEY = 'sgs_consent_v1';
+    const banner = document.getElementById('cookieBanner');
+    const modal = document.getElementById('cookieModal');
+    const catAnalytics = document.getElementById('cookieCatAnalytics');
+    const catMarketing = document.getElementById('cookieCatMarketing');
+
+    function readConsent() {
+        try {
+            const raw = localStorage.getItem(COOKIE_KEY);
+            return raw ? JSON.parse(raw) : null;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function writeConsent(consent) {
+        try {
+            localStorage.setItem(COOKIE_KEY, JSON.stringify({
+                ...consent,
+                necessary: true,
+                timestamp: new Date().toISOString(),
+                version: 1
+            }));
+        } catch (e) {
+            /* localStorage blocked – session-only consent */
+        }
+        applyConsent(consent);
+        hideBanner();
+        closeModal();
+    }
+
+    function applyConsent(consent) {
+        // Hook for loading analytics / marketing pixels only after consent.
+        // Tracking scripts (Google, Meta, HubSpot, GoHighLevel) should be
+        // injected here based on consent.analytics / consent.marketing.
+        window.__sgsConsent = consent;
+        document.documentElement.dataset.consentAnalytics = consent.analytics ? '1' : '0';
+        document.documentElement.dataset.consentMarketing = consent.marketing ? '1' : '0';
+    }
+
+    function showBanner() {
+        if (!banner) return;
+        banner.removeAttribute('hidden');
+    }
+
+    function hideBanner() {
+        if (!banner) return;
+        banner.setAttribute('hidden', '');
+    }
+
+    function openModal(prefill) {
+        if (!modal) return;
+        if (catAnalytics) catAnalytics.checked = !!(prefill && prefill.analytics);
+        if (catMarketing) catMarketing.checked = !!(prefill && prefill.marketing);
+        modal.removeAttribute('hidden');
+        document.body.classList.add('cookie-open');
+    }
+
+    function closeModal() {
+        if (!modal) return;
+        modal.setAttribute('hidden', '');
+        document.body.classList.remove('cookie-open');
+    }
+
+    const stored = readConsent();
+    if (stored) {
+        applyConsent(stored);
+    } else {
+        showBanner();
+    }
+
+    document.getElementById('cookieAccept')?.addEventListener('click', () => {
+        writeConsent({ analytics: true, marketing: true });
+    });
+    document.getElementById('cookieReject')?.addEventListener('click', () => {
+        writeConsent({ analytics: false, marketing: false });
+    });
+    document.getElementById('cookieSettings')?.addEventListener('click', () => {
+        openModal(stored || { analytics: false, marketing: false });
+    });
+
+    document.getElementById('cookieAcceptModal')?.addEventListener('click', () => {
+        writeConsent({ analytics: true, marketing: true });
+    });
+    document.getElementById('cookieRejectModal')?.addEventListener('click', () => {
+        writeConsent({ analytics: false, marketing: false });
+    });
+    document.getElementById('cookieSaveModal')?.addEventListener('click', () => {
+        writeConsent({
+            analytics: !!(catAnalytics && catAnalytics.checked),
+            marketing: !!(catMarketing && catMarketing.checked)
+        });
+    });
+
+    modal?.querySelectorAll('[data-cookie-close]').forEach((el) => {
+        el.addEventListener('click', closeModal);
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && !modal.hasAttribute('hidden')) {
+            closeModal();
+        }
+    });
+
+    document.getElementById('cookieReopen')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal(readConsent() || { analytics: false, marketing: false });
     });
 
     /* ---------------------------------------
