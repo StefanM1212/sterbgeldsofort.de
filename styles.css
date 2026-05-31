@@ -954,57 +954,225 @@ ul {
 }
 
 /* ---------- Testimonials ---------- */
-.testimonials {
+/* ---------- Reviews (Trustpilot) ---------- */
+.reviews {
     padding: 100px 0;
     background-color: var(--color-white);
 }
 
-.testimonials__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
+/* Trustpilot Logo + Sterne (Markenelemente) */
+.tp-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
 }
 
-.testimonial {
+.tp-logo__star {
+    fill: #00b67a;
+}
+
+.tp-logo__text {
+    font-weight: 800;
+    color: var(--color-text-strong);
+    letter-spacing: -0.01em;
+}
+
+.tp-logo--sm .tp-logo__text {
+    font-size: 0.95rem;
+}
+
+.tp-stars {
+    display: inline-flex;
+    gap: 3px;
+}
+
+.tp-star {
+    width: 24px;
+    height: 24px;
+    background-color: #dcdce6;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.tp-star--on {
+    background-color: #00b67a;
+}
+
+.tp-star--half {
+    background-image: linear-gradient(90deg, #00b67a 50%, #dcdce6 50%);
+}
+
+.tp-stars--lg .tp-star {
+    width: 34px;
+    height: 34px;
+}
+
+/* Badge über der Panel */
+.tp-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+}
+
+.tp-badge__label {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.tp-badge .tp-logo__text {
+    font-size: 1.25rem;
+}
+
+/* Panel: Score links, Karten rechts */
+.reviews__panel {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 36px;
+    align-items: start;
+}
+
+.reviews__score {
+    position: sticky;
+    top: 100px;
     background-color: var(--color-base);
-    border-radius: var(--radius-lg);
-    padding: 32px;
     border: 1px solid var(--color-base-dark);
+    border-radius: var(--radius-xl);
+    padding: 36px 28px;
+    text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    align-items: center;
+    gap: 14px;
 }
 
-.testimonial__stars {
-    display: flex;
-    gap: 4px;
-    color: #FFB400;
-}
-
-.testimonial blockquote {
-    font-size: 1.05rem;
-    line-height: 1.65;
+.reviews__score-num {
+    font-size: 3.6rem;
+    font-weight: 800;
+    line-height: 1;
     color: var(--color-text-strong);
+}
+
+.reviews__score-word {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-text-strong);
+    margin-top: -6px;
+}
+
+.reviews__score-meta {
+    font-size: 0.95rem;
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+.reviews__score-meta strong {
+    color: var(--color-text-strong);
+}
+
+.reviews__score-meta .tp-logo {
+    vertical-align: middle;
+}
+
+.reviews__score .btn {
+    margin-top: 6px;
+    width: 100%;
+}
+
+.reviews__marquee {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    height: 560px;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+}
+
+.reviews__lane {
+    overflow: hidden;
+}
+
+.reviews__track {
+    display: flex;
+    flex-direction: column;
+    will-change: transform;
+}
+
+/* Abstand über margin statt gap, damit translateY(-50%) sauber loopt */
+.reviews__track .review-card {
+    margin-bottom: 24px;
+}
+
+.reviews__lane--up .reviews__track {
+    animation: reviews-scroll-up 38s linear infinite;
+}
+
+.reviews__lane--down .reviews__track {
+    animation: reviews-scroll-down 38s linear infinite;
+}
+
+/* Beim Hovern anhalten, damit man in Ruhe lesen kann */
+.reviews__marquee:hover .reviews__track {
+    animation-play-state: paused;
+}
+
+@keyframes reviews-scroll-up {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-50%); }
+}
+
+@keyframes reviews-scroll-down {
+    from { transform: translateY(-50%); }
+    to   { transform: translateY(0); }
+}
+
+.review-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-base-dark);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.review-card__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text-strong);
+}
+
+.review-card blockquote {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--color-text);
     flex-grow: 1;
 }
 
-.testimonial figcaption {
+.review-card__foot {
     display: flex;
-    flex-direction: column;
-    line-height: 1.4;
-    padding-top: 16px;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
     border-top: 1px solid var(--color-base-dark);
+    font-size: 0.88rem;
 }
 
-.testimonial figcaption strong {
-    color: var(--color-primary);
-    font-size: 1rem;
+.review-card__verified {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #00b67a;
     font-weight: 700;
 }
 
-.testimonial figcaption span {
-    color: var(--color-text);
-    font-size: 0.9rem;
+.review-card__date {
+    color: var(--color-text-soft);
 }
 
 /* ---------- FAQ ---------- */
@@ -1094,6 +1262,32 @@ ul {
 .faq__answer strong {
     color: var(--color-primary);
     font-weight: 700;
+}
+
+.faq__answer ul {
+    list-style: none;
+    margin: 12px 0;
+    padding: 0;
+}
+
+.faq__answer li {
+    position: relative;
+    padding-left: 26px;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.faq__answer li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.faq__answer li:last-child {
+    margin-bottom: 0;
 }
 
 /* ---------- Kontakt ---------- */
@@ -1886,9 +2080,26 @@ body.no-scroll {
 
     /* Grids → 2 cols */
     .problem__grid,
-    .vorteile__grid,
-    .testimonials__grid {
+    .vorteile__grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Reviews → Score oben, Karten 2-spaltig darunter */
+    .reviews__panel {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .reviews__score {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px 24px;
+    }
+
+    .reviews__score .btn {
+        width: auto;
     }
 
     /* Ablauf → 2 cols + connectors hidden */
@@ -2074,7 +2285,7 @@ body.no-scroll {
     .vorteile,
     .ablauf,
     .ueber-mich,
-    .testimonials,
+    .reviews,
     .faq,
     .kontakt,
     .rechtliches {
@@ -2187,15 +2398,25 @@ body.no-scroll {
     /* Grids → 1 col */
     .problem__grid,
     .vorteile__grid,
-    .testimonials__grid,
     .kontakt__grid {
         grid-template-columns: 1fr;
         gap: 18px;
     }
 
+    /* Reviews-Laufband → eine Bahn auf dem Handy */
+    .reviews__marquee {
+        grid-template-columns: 1fr;
+        gap: 0;
+        height: 480px;
+    }
+
+    .reviews__lane--down {
+        display: none;
+    }
+
     .problem__card,
     .benefit,
-    .testimonial,
+    .review-card,
     .cta-card {
         padding: 28px 24px;
     }
@@ -2397,7 +2618,7 @@ body.no-scroll {
     .vorteile,
     .ablauf,
     .ueber-mich,
-    .testimonials,
+    .reviews,
     .faq,
     .kontakt {
         padding: 48px 0;
@@ -2420,7 +2641,7 @@ body.no-scroll {
     .card,
     .problem__card,
     .benefit,
-    .testimonial,
+    .review-card,
     .cta-card,
     .step {
         padding: 22px 20px;
@@ -2614,7 +2835,7 @@ body.no-scroll {
     .card,
     .problem__card,
     .benefit,
-    .testimonial,
+    .review-card,
     .cta-card,
     .step {
         padding: 22px 18px;
